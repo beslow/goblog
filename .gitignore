@@ -17,3 +17,6 @@
 .DS_Store
 
 goblog
+
+logs
+.idea/

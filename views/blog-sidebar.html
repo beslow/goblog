@@ -1,0 +1,66 @@
+{{ define "blog-sidebar" }}
+<!-- sidebar -->
+<div class="col-md-4">
+    <div class="main-sidebar fixed-bar fl-wrap">
+        <div class="widget-sidebar ws_column">
+            <!-- widget -->
+            <div class="widget-inner">
+                <form action="#">
+                    <input name="se" id="se2" type="text" class="search" placeholder="Search..." value="" />
+                    <button class="search-submit  " id="submit_btn2"><i class="fa fa-search transition"></i> </button>
+                </form>
+            </div>
+            <!-- <h3>Tags</h3>
+            <div class="widget-inner">
+                <ul class="post-tags">
+                    <li><a href="#">Paint</a></li>
+                    <li><a href="#">Construction</a></li>
+                    <li><a href="#">Build</a></li>
+                    <li><a href="#">Poster</a></li>
+                    <li><a href="#">Trends</a></li>
+                </ul>
+            </div> -->
+            <!-- widget end  -->
+            <!-- widget -->
+            <h3>Categories</h3>
+            <div class="widget-inner">
+                <ul class="cat-wid">
+                    {{ range .categories }}
+                        <li class="cat-item"><a href="#">{{ .Name }}</a><span>{{ .Num }}</span></li>
+                    {{ end }}
+                </ul>
+            </div>
+            <!-- widget end  -->										
+            <!-- widget  -->
+            <h3>Last Posts</h3>
+            <div class="widget-inner">
+                <ul class="widget-posts">
+                    {{ range .last_posts }}
+                        <li class="clearfix">
+                            <!-- <a href="/blog/{{ .ID | toHashID }}" class="widget-posts-img"></a> -->
+                            <div class="widget-posts-descr">
+                                <a href="/blog/{{ .ID | toHashID }}" title="">{{ .Title }}</a>
+                                <span class="widget-posts-date"><i class="far fa-calendar"></i> {{ .CreatedAt | formatAsDate }} </span>
+                            </div>
+                        </li>
+                    {{ end }}
+                </ul>
+            </div>
+            <!-- widget end  -->
+            <!-- widget -->
+            <!-- <h3>Subscribe</h3>
+            <div class="widget-inner">
+                <div class="subcribe-form fl-wrap">
+                    <form id="subscribe">
+                        <input class="enteremail" name="email" id="subscribe-email" placeholder="Your Email" spellcheck="false" type="text">
+                        <button type="submit" id="subscribe-button" class="subscribe-button gradient-bg">Submit</button>
+                        <label for="subscribe-email" class="subscribe-message"></label>
+                    </form>
+                </div>
+            </div> -->
+            <!-- widget end  -->
+        </div>
+    </div>
+</div>
+<!-- sidebar end -->
+{{ end }}

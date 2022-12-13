@@ -1,8 +1,9 @@
-package consts
+package models
 
 import "github.com/beslow/goblog/db"
 
 type Const struct {
+	ID          int
 	Name        string
 	Description string
 	Value       string

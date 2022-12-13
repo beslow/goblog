@@ -10,19 +10,42 @@
         </div>
         <div class="box-text-wrap fl-wrap">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="fl-wrap content-box single_pb cb_dec">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Dolore magna aliqua.
+                        <p>2013年毕业后，就来到了上海开始工作，大部分时间都在从事Ruby相关的工作，使用的是Ruby on Rails框架。
+                            2021年开始尝试转Go语言，工作中用Go开发了不少的工具，也用Go写过简单的API服务。
+                            这个博客就是用Go写的，主要用到了Gin和Go-admin这2个框架，源码在&nbsp;&nbsp;
+                            <a href="https://github.com/beslow/goblog" class="home-description-link" target="_blank">https://github.com/beslow/goblog</a>
                         </p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="box-text-wrap_item content-box">
-                        <h5>Language Knowledge</h5>
-                        <ul>
-                            <li><span>Dutch</span></li>
-                            <li><span>French</span></li>
-                            <li><span>Portuguese</span></li>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box-text-wrap_item content-box" style="overflow: auto;">
+                        <h5>技术栈</h5>
+                        <ul style="float: left">
+                            <li style="width: 150px"><span>Golang</span></li>
+                            <li><span>Ruby</span></li>
+                            <li><span>JS</span></li>
+                            <li><span>Shell</span></li>
+                        </ul>
+                        <ul style="float: left">
+                            <li style="width: 150px"><span>Rails</span></li>
+                            <li><span>RSpec</span></li>
+                            <li><span>React</span></li>
+                            <li><span>Ajax</span></li>
+                        </ul>
+                        <ul style="float: left">
+                            <li><span>Gin</span></li>
+                            <li><span>Gorm</span></li>
+                            <li><span>go-Admin</span></li>
+                            <li style="width: 150px"><span>Docker</span></li>
+                        </ul>
+                        <ul style="float: left">
+                            <li style="width: 150px"><span>MySQL</span></li>
+                            <li><span>Redis</span></li>
+                            <li><span>Mongodb</span></li>
                         </ul>
                     </div>
                 </div>
@@ -33,106 +56,61 @@
     <!--section  --> 
     <section  >
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="section-title fl-wrap">
                     <h3>Work History</h3>
                 </div>
                 <div class="resume-item-container fl-wrap">
-                    <!--resume-item--> 
-                    <div class="resume-item fl-wrap">
-                        <h4>SoftService Company</h4>
-                        <h5>Web Developer</h5>
-                        <p> Dolore magna aliqua. Consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde.</p>
-                        <span class="resume-date">2022 and to the present</span>
-                    </div>
-                    <!--resume-item end--> 
-                    <!--resume-item--> 
-                    <div class="resume-item fl-wrap">
-                        <h4>KharkivIT Soft</h4>
-                        <h5>Front-end Developer</h5>
-                        <p> Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde.</p>
-                        <span class="resume-date">2016 - 2021</span>
-                    </div>
-                    <!--resume-item end--> 
-                    <!--resume-item--> 
-                    <div class="resume-item fl-wrap">
-                        <h4>Envato Market</h4>
-                        <h5>Senior Developer</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor ncididunt ut labore et dolore magna aliqua. Ut  veniam.</p>
-                        <span class="resume-date">2015 - 2016</span>
-                    </div>
-                    <!--resume-item end--> 												
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="section-title fl-wrap">
-                    <h3>Education</h3>
-                </div>
-                <div class="resume-item-container ric_nom fl-wrap">
-                    <!--resume-item--> 
-                    <div class="resume-item fl-wrap">
-                        <h4>Programming Course</h4>
-                        <h5>New York</h5>
-                        <p> Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde.</p>
-                        <span class="resume-date">2021 - 2022</span>
-                    </div>
-                    <!--resume-item end--> 
-                    <!--resume-item--> 
-                    <div class="resume-item fl-wrap">
-                        <h4>University of Design</h4>
-                        <h5>London</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor ncididunt ut labore et dolore magna aliqua. Ut  veniam.</p>
-                        <span class="resume-date">2012 - 2016</span>
-                    </div>
-                    <!--resume-item end--> 											
-                    <!--resume-item--> 
-                    <div class="resume-item fl-wrap">
-                        <h4>Academy of Art University</h4>
-                        <h5>Paris</h5>
-                        <p> Dolore magna aliqua. Consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde.</p>
-                        <span class="resume-date">2008 - 2012</span>
-                    </div>
-                    <!--resume-item end--> 
+                    {{ range .history_works }}
+                        <!--resume-item--> 
+                        <div class="resume-item fl-wrap">
+                            <h4>{{ .Company }}</h4>
+                            <h5>{{ .JobTitle }}</h5>
+                            <p>{{ .Description }}</p>
+                            <span class="resume-date">{{ .FromTo }}</span>
+                        </div>
+                        <!--resume-item end--> 
+                    {{ end }}										
                 </div>
             </div>
         </div>
     </section>
     <!--section end-->  							
     <!--section  --> 
-    <section>
+    <!-- <section>
         <div class="fl-wrap">
             <div class="row">
                 <div class="col-md-6">
                     <div class="section-title fl-wrap">
                         <h3>Design Skills</h3>
                     </div>
-                    <div class="skillbar-box animaper">
+                    <div class="skillbar-box animaper"> -->
                         <!-- skill  -->
-                        <div class="custom-skillbar-title"><span>Photoshop</span></div>
+                        <!-- <div class="custom-skillbar-title"><span>Photoshop</span></div>
                         <div class="skill-bar-percent">95%</div>
                         <div class="skillbar-bg" data-percent="95%">
                             <div class="custom-skillbar"></div>
-                        </div>
+                        </div> -->
                         <!-- skill  -->
-                        <div class="custom-skillbar-title"><span>Figma</span></div>
+                        <!-- <div class="custom-skillbar-title"><span>Figma</span></div>
                         <div class="skill-bar-percent">65%</div>
                         <div class="skillbar-bg" data-percent="65%">
                             <div class="custom-skillbar"></div>
-                        </div>
+                        </div> -->
                         <!-- skill  -->
-                        <div class="custom-skillbar-title"><span>Sketch</span></div>
+                        <!-- <div class="custom-skillbar-title"><span>Sketch</span></div>
                         <div class="skill-bar-percent">75%</div>
                         <div class="skillbar-bg" data-percent="75%">
                             <div class="custom-skillbar"></div>
-                        </div>
+                        </div> -->
                         <!-- skill  -->
-                        <div class="custom-skillbar-title"><span>LightRoom</span></div>
+                        <!-- <div class="custom-skillbar-title"><span>LightRoom</span></div>
                         <div class="skill-bar-percent">65%</div>
                         <div class="skillbar-bg" data-percent="65%">
                             <div class="custom-skillbar"></div>
-                        </div>
+                        </div> -->
                         <!-- skill  -->
-                        <div class="custom-skillbar-title"><span>Adobe XD</span></div>
+                        <!-- <div class="custom-skillbar-title"><span>Adobe XD</span></div>
                         <div class="skill-bar-percent">75%</div>
                         <div class="skillbar-bg" data-percent="75%">
                             <div class="custom-skillbar"></div>
@@ -144,9 +122,9 @@
                         <h3>Developer Skills</h3>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="piechart-holder fl-wrap animaper" data-skcolor="#F89020">
+                    <div class="piechart-holder fl-wrap animaper" data-skcolor="#F89020"> -->
                         <!-- 1  -->
-                        <div class="piechart" >
+                        <!-- <div class="piechart" >
                             <span class="chart" data-percent="85">
                             <span class="percent"></span>
                             </span>
@@ -154,10 +132,10 @@
                             <div class="skills-description">
                                 <h4>Jqeury</h4>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- 1 end -->
                         <!-- 2  -->
-                        <div class="piechart">
+                        <!-- <div class="piechart">
                             <span class="chart" data-percent="95">
                             <span class="percent"></span>
                             </span>
@@ -165,10 +143,10 @@
                             <div class="skills-description">
                                 <h4>Phyton</h4>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- 2 end  -->
                         <!-- 3  -->
-                        <div class="piechart">
+                        <!-- <div class="piechart">
                             <span class="chart" data-percent="80">
                             <span class="percent"></span>
                             </span>
@@ -176,10 +154,10 @@
                             <div class="skills-description">
                                 <h4>React JS</h4>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- 3  end-->
                         <!-- 3  -->
-                        <div class="piechart">
+                        <!-- <div class="piechart">
                             <span class="chart" data-percent="70">
                             <span class="percent"></span>
                             </span>
@@ -187,14 +165,14 @@
                             <div class="skills-description">
                                 <h4>PHP / MYSQL</h4>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- 3  end-->											
-                        <div class="chart-dec"><span><i class="fal fa-plus"></i></span></div>
+                        <!-- <div class="chart-dec"><span><i class="fal fa-plus"></i></span></div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!--section end--> 								
     <div class="to-top-wrap">
         <div class="to-top color-bg"><i class="fas fa-caret-up"></i></div>

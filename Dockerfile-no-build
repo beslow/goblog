@@ -1,0 +1,13 @@
+FROM alpine:3.14
+
+WORKDIR /app
+
+COPY goblog adm.ini /app/
+
+COPY config.yml.example /app/config.yml
+
+COPY redis.yml.example /app/redis.yml
+
+RUN chmod +x /app/goblog
+
+CMD ["./goblog"]
