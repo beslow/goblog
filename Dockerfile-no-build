@@ -1,5 +1,7 @@
 FROM alpine:3.14
 
+RUN apk add wait4x
+
 WORKDIR /app
 
 COPY goblog adm.ini /app/
@@ -10,4 +12,4 @@ COPY redis.yml.example /app/redis.yml
 
 RUN chmod +x /app/goblog
 
-CMD ["./goblog"]
+# CMD ["./goblog"]

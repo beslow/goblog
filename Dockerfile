@@ -14,6 +14,8 @@ RUN mkdir publish && cp goblog publish && \
 
 FROM alpine:3.14
 
+RUN apk add wait4x
+
 WORKDIR /app
 
 COPY --from=builder /app/publish .

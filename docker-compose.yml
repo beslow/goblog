@@ -3,9 +3,8 @@ services:
   app:
     build: .
     ports:
-      - "8080:80"
-    # sleep 8 second to wait that mysql is really ready for connection.  
-    command: /bin/sh -c "sleep 8 && ./goblog -db:create && ./goblog -db:migrate && ./goblog -db:seed && ./goblog"
+      - "8080:80" 
+    command: /bin/sh -c "wait4x tcp db:3306 -t 30s && wait4x tcp redis:6379 -t 30s && ./goblog -db:create && ./goblog -db:migrate && ./goblog -db:seed && ./goblog"
     depends_on:
       - db
       - redis
@@ -26,8 +25,6 @@ services:
     image: redis:6.0.16-bullseye
     command: redis-server --appendonly yes
     restart: unless-stopped
-    ports:
-      - "16379:6379"
     volumes:
       - /var/lib/data:/data  
     networks:

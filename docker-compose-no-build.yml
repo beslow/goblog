@@ -4,8 +4,7 @@ services:
     image: beslow/goblog:latest
     ports:
       - "80:80"
-    # sleep 8 second to wait that mysql is really ready for connection.
-    command: /bin/sh -c "sleep 8 && ./goblog -db:create && ./goblog -db:migrate && ./goblog -db:seed && ./goblog"
+    command: /bin/sh -c "wait4x tcp db:3306 -t 30s && wait4x tcp redis:6379 -t 30s && ./goblog -db:create && ./goblog -db:migrate && ./goblog -db:seed && ./goblog"
     depends_on:
       - db
       - redis

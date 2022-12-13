@@ -20,3 +20,11 @@ yum install docker-compose -y
 $ docker exec -it root_redis_1 redis-cli
 > acl setuser admin on >admin ~* +@all
 ```
+
+# push image
+### 1. build image
+`docker build -t beslow/goblog .`
+### 2. push to docker.io, need docker login
+`docker push beslow/goblog`
+### 3. update image locally
+`docker pull beslow/goblog:latest`
