@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"github.com/beslow/goblog/controller"
-	"github.com/beslow/goblog/db"
+	"github.com/beslow/goblog/initialize"
 	"github.com/beslow/goblog/models"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -20,7 +20,7 @@ import (
 func PostIndex(router *gin.Engine) {
 	router.GET("/blog", func(c *gin.Context) {
 		var posts []models.Post
-		db.DB.Find(&posts)
+		initialize.DB.Find(&posts)
 
 		pageStr, _ := c.GetQuery("page")
 		page, _ := strconv.Atoi(pageStr)
@@ -28,7 +28,7 @@ func PostIndex(router *gin.Engine) {
 			page = 1
 		}
 
-		p := paginator.New(adapter.NewGORMAdapter(db.DB.Table("posts")), 10)
+		p := paginator.New(adapter.NewGORMAdapter(initialize.DB.Table("posts")), 10)
 		p.SetPage(page)
 
 		if err := p.Results(&posts); err != nil {
@@ -63,7 +63,7 @@ func PostShow(router *gin.Engine) {
 
 		var post models.Post
 		if len(id) > 0 {
-			db.DB.Debug().Where("id = ?", id[0]).Find(&post)
+			initialize.DB.Debug().Where("id = ?", id[0]).Find(&post)
 		}
 
 		if post.ID == 0 {
@@ -104,7 +104,7 @@ func PostComment(router *gin.Engine) {
 
 		var post models.Post
 		if len(id) > 0 {
-			db.DB.Where("id = ?", id[0]).Find(&post)
+			initialize.DB.Where("id = ?", id[0]).Find(&post)
 		}
 
 		if post.ID == 0 {
@@ -120,7 +120,7 @@ func PostComment(router *gin.Engine) {
 func addVisitCount(post models.Post, c *gin.Context) (err error) {
 	ipAddr := c.ClientIP()
 	if ipAddr != "" {
-		conn := db.RedisPool.Get()
+		conn := initialize.RedisPool.Get()
 		defer conn.Close()
 
 		key := fmt.Sprintf("post#%d#ip#%s", post.ID, ipAddr)

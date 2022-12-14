@@ -8,9 +8,12 @@ COPY . .
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build .
 
-RUN mkdir publish && cp goblog publish && \
-    cp adm.ini publish && cp config.yml.example publish/config.yml && \
-    cp redis.yml.example publish/redis.yml
+RUN mkdir publish && \
+    cp goblog publish && \
+    cp adm.ini publish && \
+    cp config.yml.example publish/config.yml && \
+    cp redis.yml.example publish/redis.yml && \
+    cp sentry.yml.example publish/sentry.yml
 
 FROM alpine:3.14
 

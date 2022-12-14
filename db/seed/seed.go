@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/beslow/goblog/db"
+	"github.com/beslow/goblog/initialize"
 )
 
 var seedData = map[string]string{
@@ -132,7 +132,7 @@ func Seed() {
 
 func seedTable(table, insertSql string) {
 	var count int64
-	err := db.DB.Table(table).Count(&count).Error
+	err := initialize.DB.Table(table).Count(&count).Error
 
 	if err != nil {
 		fmt.Printf("check %s fail: %#v\n", table, err)
@@ -140,7 +140,7 @@ func seedTable(table, insertSql string) {
 	}
 
 	if count == 0 {
-		if err := db.DB.Exec(insertSql).Error; err != nil {
+		if err := initialize.DB.Exec(insertSql).Error; err != nil {
 			fmt.Printf("seed %s fail: %#v\n", table, err)
 			os.Exit(1)
 		}

@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
-	"github.com/beslow/goblog/db"
+	"github.com/beslow/goblog/initialize"
 )
 
 type Post struct {
@@ -32,7 +32,7 @@ func (post *Post) HashID() string {
 }
 
 func (post *Post) GetAllComments() (comments []Comment, err error) {
-	err = db.DB.Debug().Where("post_id = ?", post.ID).Find(&comments).Error
+	err = initialize.DB.Debug().Where("post_id = ?", post.ID).Find(&comments).Error
 	return
 }
 
@@ -40,7 +40,7 @@ func (post *Post) GetAllComments() (comments []Comment, err error) {
 func (post Post) GetCommentCount() (count int64, err error) {
 	key := post.keyCommentCount()
 
-	conn := db.RedisPool.Get()
+	conn := initialize.RedisPool.Get()
 	defer conn.Close()
 
 	var val interface{}
@@ -52,7 +52,7 @@ func (post Post) GetCommentCount() (count int64, err error) {
 
 	if val == nil {
 		// never cache in redis
-		if err = db.DB.Table("comments").Where("post_id = ?", post.ID).
+		if err = initialize.DB.Table("comments").Where("post_id = ?", post.ID).
 			Count(&count).Error; err != nil {
 			return
 		}
@@ -81,7 +81,7 @@ func (post Post) DeleteCacheCommentCount() {
 	key := post.keyCommentCount()
 	var err error
 
-	conn := db.RedisPool.Get()
+	conn := initialize.RedisPool.Get()
 	defer conn.Close()
 	if _, err = conn.Do("del", key); err != nil {
 		log.Panic(err)
@@ -90,7 +90,7 @@ func (post Post) DeleteCacheCommentCount() {
 
 // add post's visit count
 func (post Post) IncreaseVisitCount() {
-	err := db.DB.Model(&post).
+	err := initialize.DB.Model(&post).
 		Clauses(clause.Locking{Strength: "UPDATE"}). // Locking (FOR UPDATE)
 		Update("visit_count", post.VisitCount+1).    // only update visit_count field
 		Error

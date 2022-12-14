@@ -1,6 +1,8 @@
 package models
 
-import "github.com/beslow/goblog/db"
+import (
+	"github.com/beslow/goblog/initialize"
+)
 
 type Const struct {
 	ID          int
@@ -12,7 +14,7 @@ type Const struct {
 func GetConst(name string) string {
 	var constRecord Const
 
-	db.DB.Where("name = ?", name).Find(&constRecord)
+	initialize.DB.Where("name = ?", name).Find(&constRecord)
 
 	return constRecord.Value
 }

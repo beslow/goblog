@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/beslow/goblog/db"
+	"github.com/beslow/goblog/initialize"
 	"github.com/gin-gonic/gin"
 	"github.com/gomodule/redigo/redis"
 )
@@ -16,7 +16,7 @@ func CountVisit() gin.HandlerFunc {
 			func() {
 				key := fmt.Sprintf("site_visit#ip#%s", ipAddr)
 
-				conn := db.RedisPool.Get()
+				conn := initialize.RedisPool.Get()
 				defer conn.Close()
 
 				reply, err := conn.Do("get", key)

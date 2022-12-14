@@ -3,7 +3,7 @@ package models
 import (
 	"time"
 
-	"github.com/beslow/goblog/db"
+	"github.com/beslow/goblog/initialize"
 )
 
 type HistoryWork struct {
@@ -20,7 +20,7 @@ type HistoryWork struct {
 
 func GetAllHistoryWorks() []HistoryWork {
 	var historyWorks []HistoryWork
-	db.DB.Find(&historyWorks)
+	initialize.DB.Find(&historyWorks)
 
 	return historyWorks
 }

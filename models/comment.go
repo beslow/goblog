@@ -3,7 +3,7 @@ package models
 import (
 	"time"
 
-	"github.com/beslow/goblog/db"
+	"github.com/beslow/goblog/initialize"
 )
 
 type Comment struct {
@@ -29,5 +29,5 @@ func CreateComment(post Post, name, email, body string) error {
 		Body:  body,
 	}
 
-	return db.DB.Create(&comment).Error
+	return initialize.DB.Create(&comment).Error
 }

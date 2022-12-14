@@ -8,7 +8,7 @@ import (
 	"github.com/GoAdminGroup/go-admin/plugins/admin/modules/table"
 	"github.com/GoAdminGroup/go-admin/template/types"
 	"github.com/GoAdminGroup/go-admin/template/types/form"
-	blog_db "github.com/beslow/goblog/db"
+	"github.com/beslow/goblog/initialize"
 	"github.com/beslow/goblog/models"
 )
 
@@ -31,7 +31,7 @@ func GetPostsTable(ctx *context.Context) table.Table {
 	formList.AddField("Id", "id", db.Int, form.Default)
 
 	var categories []models.Category
-	blog_db.DB.Find(&categories)
+	initialize.DB.Find(&categories)
 
 	var fieldOptions = make(types.FieldOptions, 0, 10)
 	for _, category := range categories {

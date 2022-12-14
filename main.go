@@ -22,6 +22,7 @@ import (
 	"github.com/beslow/goblog/db/migrations"
 	"github.com/beslow/goblog/db/seed"
 	"github.com/beslow/goblog/helpers"
+	"github.com/beslow/goblog/initialize"
 	"github.com/beslow/goblog/middleware"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -29,6 +30,7 @@ import (
 
 	"github.com/beslow/goblog/pages"
 	"github.com/beslow/goblog/tables"
+	sentrygin "github.com/getsentry/sentry-go/gin"
 )
 
 //go:embed views/* static/*
@@ -66,13 +68,11 @@ func main() {
 	flag.Parse()
 
 	supportDBCreateCommand()
-	db.Init()
+	initialize.InitMySQL()
 	supportDBMigrate()
 	supportDBSeed()
 
 	router := gin.Default()
-
-	router.Use(middleware.CountVisit())
 
 	go_admin_template.AddComp(chartjs.NewChart())
 
@@ -89,6 +89,10 @@ func main() {
 	log := log.New()
 
 	router.Use(ginlogrus.Logger(log), gin.Recovery())
+	router.Use(middleware.CountVisit())
+	if initialize.GetSentryDsn() != "" {
+		router.Use(sentrygin.New(sentrygin.Options{}))
+	}
 
 	router.StaticFS("/public", http.FS(f))
 
@@ -144,7 +148,7 @@ func releaseResource(quit chan os.Signal, eng *engine.Engine) {
 			eng.MysqlConnection().Close()
 
 			log.Print("close redis connection")
-			db.RedisPool.Close()
+			initialize.RedisPool.Close()
 
 			os.Exit(0)
 		default:

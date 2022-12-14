@@ -10,6 +10,8 @@ COPY config.yml.example /app/config.yml
 
 COPY redis.yml.example /app/redis.yml
 
+COPY sentry.yml.example /app/sentry.yml
+
 RUN chmod +x /app/goblog
 
 # CMD ["./goblog"]

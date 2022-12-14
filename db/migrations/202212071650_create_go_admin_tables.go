@@ -1,7 +1,7 @@
 package migrations
 
 import (
-	"github.com/beslow/goblog/db"
+	"github.com/beslow/goblog/initialize"
 	"github.com/beslow/goblog/models"
 )
 
@@ -9,7 +9,7 @@ func createGoAdminTables() {
 	timestamp := "202212071650"
 
 	var migration models.Migration
-	db.DB.Where("timestamp = ?", timestamp).Find(&migration)
+	initialize.DB.Where("timestamp = ?", timestamp).Find(&migration)
 
 	if migration.Timestamp == "" {
 		createTable(
@@ -161,6 +161,6 @@ func createGoAdminTables() {
 			    ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;`,
 		)
 
-		db.DB.Create(&models.Migration{Timestamp: timestamp})
+		initialize.DB.Create(&models.Migration{Timestamp: timestamp})
 	}
 }
