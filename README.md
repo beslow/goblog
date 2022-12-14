@@ -1,4 +1,6 @@
-# goblog deploy steps:
+# Example
+http://1.117.145.187/blog
+# Goblog deploy steps:
 ### 1. upload the docker-compose-no-build.yml file to server
 `scp docker-compose-no-build.yml root@x.x.x.x:/root`
 ### 2. create mysql data dir
@@ -21,7 +23,7 @@ $ docker exec -it root_redis_1 redis-cli
 > acl setuser admin on >admin ~* +@all
 ```
 
-# push image
+# Update image
 ### 1. build image
 `docker build -t beslow/goblog .`
 ### 2. push to docker.io, need docker login
