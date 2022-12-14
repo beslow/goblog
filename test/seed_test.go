@@ -1,7 +1,7 @@
-package seed
+package test
 
 import "testing"
 
 func TestSeed(t *testing.T) {
-	Seed()
+	// db.Seed()
 }

@@ -10,6 +10,7 @@ require (
 	github.com/gomodule/redigo v1.8.9
 	github.com/sirupsen/logrus v1.9.0
 	github.com/speps/go-hashids v2.0.0+incompatible
+	github.com/stretchr/testify v1.8.0
 	github.com/toorop/gin-logrus v0.0.0-20210225092905-2c785434f26f
 	github.com/ungerik/go-gravatar v0.0.0-20120802094239-6ab22628222a
 	github.com/vcraescu/go-paginator/v2 v2.0.0
@@ -23,6 +24,7 @@ require (
 	github.com/360EntSecGroup-Skylar/excelize v1.4.1 // indirect
 	github.com/GoAdminGroup/html v0.0.1 // indirect
 	github.com/NebulousLabs/fastrand v0.0.0-20181203155948-6fb6489aac4e // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
@@ -51,6 +53,7 @@ require (
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
 	github.com/natefinch/lumberjack v2.0.0+incompatible // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rogpeppe/go-internal v1.8.1 // indirect
 	github.com/syndtr/goleveldb v1.0.0 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
@@ -65,6 +68,7 @@ require (
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 	xorm.io/builder v0.3.12 // indirect
 	xorm.io/xorm v1.3.2 // indirect
 )

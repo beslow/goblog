@@ -17,12 +17,6 @@ yum install docker-compose -y
 ### 6. run goblog
 `docker-compose -f docker-compose-no-build.yml up -d`
 
-### 7. set acl user admin
-```
-$ docker exec -it root_redis_1 redis-cli
-> acl setuser admin on >admin ~* +@all
-```
-
 # Update image
 ### 1. build image
 `docker build -t beslow/goblog .`
@@ -30,3 +24,9 @@ $ docker exec -it root_redis_1 redis-cli
 `docker push beslow/goblog`
 ### 3. update image locally
 `docker pull beslow/goblog:latest`
+
+# Test
+### 1. generate assets
+`go generate test/*.go`
+### 2. run test
+`go test ./...`

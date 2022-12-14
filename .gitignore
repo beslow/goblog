@@ -20,3 +20,6 @@ goblog
 
 logs
 .idea/
+
+test/static
+test/views
