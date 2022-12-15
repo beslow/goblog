@@ -3,6 +3,7 @@ package config
 import (
 	"os"
 	"path/filepath"
+	"strings"
 
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
@@ -22,11 +23,14 @@ var Redis RedisConfig
 func init() {
 	dir, _ := os.Getwd()
 
-	var configPath string
-	if os.Getenv("GoTest") != "" {
-		configPath = "test/redis.yml"
-	} else {
-		configPath = "redis.yml"
+	if os.Getenv("GO_TEST") != "" && !strings.HasSuffix(dir, "test") {
+		panic("wrong position")
+	}
+
+	configPath := "redis.yml"
+
+	if c := os.Getenv("CONFIG_YAML"); c != "" {
+		configPath = c
 	}
 
 	data, err := os.ReadFile(filepath.Join(dir, configPath))

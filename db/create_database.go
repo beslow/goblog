@@ -14,11 +14,10 @@ import (
 func CreateDatabase() {
 	dir, _ := os.Getwd()
 
-	var configPath string
-	if os.Getenv("GoTest") != "" {
-		configPath = "test/config.yml"
-	} else {
-		configPath = "config.yml"
+	configPath := "config.yml"
+
+	if c := os.Getenv("CONFIG_YAML"); c != "" {
+		configPath = c
 	}
 
 	cf := config.ReadFromYaml(filepath.Join(dir, configPath))

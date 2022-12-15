@@ -8,6 +8,7 @@ require (
 	github.com/GoAdminGroup/themes v0.0.43
 	github.com/getsentry/sentry-go v0.16.0
 	github.com/gin-gonic/gin v1.8.1
+	github.com/go-testfixtures/testfixtures/v3 v3.8.1
 	github.com/gomodule/redigo v1.8.9
 	github.com/romanyx/polluter v1.2.2
 	github.com/sirupsen/logrus v1.9.0

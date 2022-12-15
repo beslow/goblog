@@ -3,6 +3,7 @@ package initialize
 import (
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/GoAdminGroup/go-admin/modules/config"
 	"gorm.io/driver/mysql"
@@ -17,14 +18,18 @@ var (
 func InitMySQL() {
 	dir, _ := os.Getwd()
 
-	var configPath string
-	if os.Getenv("GoTest") != "" {
-		configPath = "test/config.yml"
-	} else {
-		configPath = "config.yml"
+	if os.Getenv("GO_TEST") != "" && !strings.HasSuffix(dir, "test") {
+		panic("wrong position")
+	}
+
+	configPath := "config.yml"
+
+	if c := os.Getenv("CONFIG_YAML"); c != "" {
+		configPath = c
 	}
 
 	cf := config.ReadFromYaml(filepath.Join(dir, configPath))
+
 	DefaultConfig = cf.Databases["default"]
 
 	var err error
