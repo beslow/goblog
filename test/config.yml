@@ -12,7 +12,7 @@ database:
     port: 3306
     user: root
     pwd: root
-    name: goblog5
+    name: test_goblog
     max_idle_con: 5
     max_open_con: 10
     # params为驱动需要的额外的传参

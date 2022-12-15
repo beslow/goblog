@@ -10,6 +10,7 @@ import (
 	_ "github.com/GoAdminGroup/go-admin/adapter/gin"              // web framework adapter
 	_ "github.com/GoAdminGroup/go-admin/modules/db/drivers/mysql" // sql driver
 	_ "github.com/GoAdminGroup/themes/adminlte"                   // ui theme
+	"github.com/gin-gonic/gin"
 
 	"github.com/GoAdminGroup/go-admin/engine"
 	"github.com/beslow/goblog/db"
@@ -17,7 +18,6 @@ import (
 	"github.com/beslow/goblog/db/seed"
 	"github.com/beslow/goblog/initialize"
 	"github.com/beslow/goblog/router"
-	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 )
 

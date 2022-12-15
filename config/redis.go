@@ -17,14 +17,19 @@ type RedisConfig struct {
 	IdleTimeout int
 }
 
-var (
-	Redis RedisConfig
-)
+var Redis RedisConfig
 
 func init() {
 	dir, _ := os.Getwd()
 
-	data, err := os.ReadFile(filepath.Join(dir, "redis.yml"))
+	var configPath string
+	if os.Getenv("GoTest") != "" {
+		configPath = "test/redis.yml"
+	} else {
+		configPath = "redis.yml"
+	}
+
+	data, err := os.ReadFile(filepath.Join(dir, configPath))
 	if err != nil {
 		log.Errorf("Read redis.yml fail, err: %#v", err)
 	}

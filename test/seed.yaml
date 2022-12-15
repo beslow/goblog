@@ -1,0 +1,14 @@
+categories:
+  - id: 1
+    name: golang
+  - id: 2
+    name: ruby  
+posts:
+  - id: 1
+    category_id: 1
+    summary: summary-1
+    title: title-1
+    body: body-1
+    visit_count: 1
+    updated_at: 2022-12-12 00:00:00
+    created_at: 2022-12-12 00:00:00

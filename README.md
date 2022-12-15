@@ -26,7 +26,13 @@ yum install docker-compose -y
 `docker pull beslow/goblog:latest`
 
 # Test
-### 1. generate assets
+### 1. create test database
+`GoTest=1 go run main.go -db:create`
+### 2. migrate test database
+`GoTest=1 go run main.go -db:migrate`
+### 3. seed test database
+`GoTest=1 go run main.go -db:seed`
+### 4. generate assets
 `go generate test/*.go`
-### 2. run test
+### 5. run test
 `go test ./...`

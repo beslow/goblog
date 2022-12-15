@@ -17,7 +17,14 @@ var (
 func InitMySQL() {
 	dir, _ := os.Getwd()
 
-	cf := config.ReadFromYaml(filepath.Join(dir, "config.yml"))
+	var configPath string
+	if os.Getenv("GoTest") != "" {
+		configPath = "test/config.yml"
+	} else {
+		configPath = "config.yml"
+	}
+
+	cf := config.ReadFromYaml(filepath.Join(dir, configPath))
 	DefaultConfig = cf.Databases["default"]
 
 	var err error

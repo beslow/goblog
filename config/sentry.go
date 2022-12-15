@@ -18,7 +18,14 @@ var Sentry SentryConfig
 func init() {
 	dir, _ := os.Getwd()
 
-	data, err := os.ReadFile(filepath.Join(dir, "sentry.yml"))
+	var configPath string
+	if os.Getenv("GoTest") != "" {
+		configPath = "test/sentry.yml"
+	} else {
+		configPath = "sentry.yml"
+	}
+
+	data, err := os.ReadFile(filepath.Join(dir, configPath))
 	if err != nil {
 		log.Errorf("Read sentry.yml fail, err: %#v", err)
 	}
