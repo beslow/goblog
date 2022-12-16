@@ -7,7 +7,7 @@ on:
     branches:
       - main
   workflow_dispatch:
-  
+
 jobs:
   deployment:
     runs-on: ubuntu-latest
@@ -45,4 +45,8 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          script: docker pull beslow/goblog:latest && docker-compose -f docker-compose-no-build.yml restart
+          script: |
+            docker pull beslow/goblog:latest &&
+            docker-compose -f docker-compose-no-build.yml down &&
+            docker-compose -f docker-compose-no-build.yml build &&
+            docker-compose -f docker-compose-no-build.yml up
