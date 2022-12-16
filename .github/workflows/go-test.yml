@@ -34,10 +34,10 @@ jobs:
           redis-port: 16379
 
       - name: migrate database
-        run: CONFIG_YAML=test/config.yml go run main.go -db:migrate
+        run: CONFIG_DIR=test/config.yml go run main.go -db:migrate
 
       - name: seed database
-        run: CONFIG_YAML=test/config.yml go run main.go -db:seed   
+        run: CONFIG_DIR=test/config.yml go run main.go -db:seed
 
       - name: generate assets
         run: go generate test/*.go 

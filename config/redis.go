@@ -29,8 +29,8 @@ func init() {
 
 	configPath := "redis.yml"
 
-	if c := os.Getenv("CONFIG_YAML"); c != "" {
-		configPath = c
+	if c := os.Getenv("CONFIG_DIR"); c != "" {
+		configPath = filepath.Join(c, configPath)
 	}
 
 	data, err := os.ReadFile(filepath.Join(dir, configPath))

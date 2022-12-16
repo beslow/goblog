@@ -27,11 +27,11 @@ yum install docker-compose -y
 
 # Test
 ### 1. create test database
-`CONFIG_YAML=test/config.yml go run main.go -db:create`
+`CONFIG_DIR=test go run main.go -db:create`
 ### 2. migrate test database
-`CONFIG_YAML=test/config.yml go run main.go -db:migrate`
+`CONFIG_DIR=test go run main.go -db:migrate`
 ### 3. seed test database
-`CONFIG_YAML=test/config.yml go run main.go -db:seed`
+`CONFIG_DIR=test go run main.go -db:seed`
 ### 4. generate assets
 `go generate test/*.go`
 ### 5. run test
