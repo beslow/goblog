@@ -49,12 +49,12 @@ func SetRouter() (*gin.Engine, *engine.Engine) {
 
 	log := log.New()
 
-	r.Use(ginlogrus.Logger(log), gin.Recovery())
+	r.Use(ginlogrus.Logger(log), gin.CustomRecovery(middleware.RecoverHandle))
 
 	r.Use(middleware.CountVisit())
 
 	if initialize.GetSentryDsn() != "" {
-		r.Use(sentrygin.New(sentrygin.Options{}))
+		r.Use(sentrygin.New(sentrygin.Options{Repanic: true})) // repanic for custom recovery
 	}
 
 	r.Use(middleware.ErrorHandler(log))

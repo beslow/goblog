@@ -19,7 +19,17 @@ func ErrorHandler(logger *logrus.Logger) gin.HandlerFunc {
 		// }
 
 		if len(c.Errors) > 0 {
-			c.HTML(500, "views/500.html", *controller.LayoutData())
+			render500page(c)
 		}
 	}
+}
+
+func RecoverHandle(c *gin.Context, err any) {
+	if err != nil {
+		render500page(c)
+	}
+}
+
+func render500page(c *gin.Context) {
+	c.HTML(500, "views/500.html", *controller.LayoutData())
 }
