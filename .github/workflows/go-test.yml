@@ -14,7 +14,7 @@ jobs:
       # - name: Build
       #   run: go build -v ./...
 
-      - name: start mysql
+      - name: setup mysql
         uses: mirromutth/mysql-action@v1.1
         with:
           host port: 3306 # Optional, default value is 3306. The port of host
@@ -26,6 +26,9 @@ jobs:
           mysql root password: 'root' # Required if "mysql user" is empty, default is empty. The root superuser password
           mysql user: 'root' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
           mysql password: 'root' # Required if "mysql user" exists. The password for the "mysql user"
+
+      - name: start mysql
+        run: sudo service mysql start
 
       - name: start redis
         uses: supercharge/redis-github-action@1.4.0
