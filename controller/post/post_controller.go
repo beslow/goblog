@@ -10,7 +10,6 @@ import (
 	"github.com/beslow/goblog/initialize"
 	"github.com/beslow/goblog/models"
 	"github.com/gin-gonic/gin"
-	log "github.com/sirupsen/logrus"
 	"github.com/vcraescu/go-paginator/v2"
 	"github.com/vcraescu/go-paginator/v2/adapter"
 	"github.com/vcraescu/go-paginator/v2/view"
@@ -31,7 +30,7 @@ func PostIndex(router *gin.Engine) {
 		p.SetPage(page)
 
 		if err := p.Results(&posts); err != nil {
-			log.Panic(err)
+			c.AbortWithError(500, err)
 		}
 
 		view := view.New(p)
@@ -69,12 +68,12 @@ func PostShow(router *gin.Engine) {
 			c.HTML(http.StatusOK, "views/404.html", controller.LayoutData())
 		} else {
 			if err := addVisitCount(post, c); err != nil {
-				log.Panic(err)
+				c.AbortWithError(500, err)
 			}
 
 			comments, err := post.GetAllComments()
 			if err != nil {
-				log.Panic(err)
+				c.AbortWithError(500, err)
 			}
 
 			data := gin.H{

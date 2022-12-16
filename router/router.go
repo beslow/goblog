@@ -24,16 +24,16 @@ import (
 var TemplateFs embed.FS
 
 var (
-	router *gin.Engine
-	eng    *engine.Engine
+	r   *gin.Engine
+	eng *engine.Engine
 )
 
 func SetRouter() (*gin.Engine, *engine.Engine) {
-	if router != nil && eng != nil {
-		return router, eng
+	if r != nil && eng != nil {
+		return r, eng
 	}
 
-	router = gin.Default()
+	r = gin.Default()
 
 	go_admin_template.AddComp(chartjs.NewChart())
 
@@ -41,7 +41,7 @@ func SetRouter() (*gin.Engine, *engine.Engine) {
 
 	if err := eng.AddConfigFromYAML("./config.yml").
 		AddGenerators(tables.Generators).
-		Use(router); err != nil {
+		Use(r); err != nil {
 		panic(err)
 	}
 
@@ -49,13 +49,17 @@ func SetRouter() (*gin.Engine, *engine.Engine) {
 
 	log := log.New()
 
-	router.Use(ginlogrus.Logger(log), gin.Recovery())
-	router.Use(middleware.CountVisit())
+	r.Use(ginlogrus.Logger(log), gin.Recovery())
+
+	r.Use(middleware.CountVisit())
+
 	if initialize.GetSentryDsn() != "" {
-		router.Use(sentrygin.New(sentrygin.Options{}))
+		r.Use(sentrygin.New(sentrygin.Options{}))
 	}
 
-	router.StaticFS("/public", http.FS(TemplateFs))
+	r.Use(middleware.ErrorHandler(log))
+
+	r.StaticFS("/public", http.FS(TemplateFs))
 
 	var funcMaps = template.FuncMap{
 		"toHashID":     helpers.ToHashID,
@@ -64,13 +68,13 @@ func SetRouter() (*gin.Engine, *engine.Engine) {
 	}
 
 	templ := template.Must(template.New("").Funcs(funcMaps).ParseFS(TemplateFs, "views/*.html"))
-	router.SetHTMLTemplate(templ)
+	r.SetHTMLTemplate(templ)
 
 	// routes here
-	resume.Resume(router)
-	post.PostIndex(router)
-	post.PostShow(router)
-	post.PostComment(router)
+	resume.Resume(r)
+	post.PostIndex(r)
+	post.PostShow(r)
+	post.PostComment(r)
 
-	return router, eng
+	return r, eng
 }

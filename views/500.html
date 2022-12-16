@@ -1,0 +1,18 @@
+{{ define "views/500.html" }}
+{{ template "layout_top" . }}
+<div class="content full-height" data-pagetitle="Error 500" data-pagesubtitle="Error 500">
+    <div class="bg-top"></div>
+    <div class="error-content">
+        <div class="overlay"></div>
+        <div class="bg" data-bg="/public/static/images/bg/2.jpg"></div>
+        <div class="error-wrap fl-wrap">
+            <div class="container">
+                <h2>500</h2>
+                <p>We're sorry, something is wrong.</p>
+                <a href="/" class="btn ajax color-bg"><span>Back to Home Page</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+{{ template "layout_bottom" }}
+{{ end }}                        
