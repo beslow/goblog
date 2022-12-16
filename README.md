@@ -1,3 +1,5 @@
+![go test](https://github.com/beslow/goblog/actions/workflows/go-test.yml/badge.svg)
+
 # Example
 http://1.117.145.187/blog
 # Goblog deploy steps:
