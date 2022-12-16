@@ -49,4 +49,4 @@ jobs:
             docker pull beslow/goblog:latest &&
             docker-compose -f docker-compose-no-build.yml down &&
             docker-compose -f docker-compose-no-build.yml build &&
-            docker-compose -f docker-compose-no-build.yml up
+            docker-compose -f docker-compose-no-build.yml up -d
