@@ -1,7 +1,7 @@
 name: go-test
 on: [push]
 jobs:
-  build:
+  go-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -13,7 +13,7 @@ jobs:
 
       # - name: Build
       #   run: go build -v ./...
-      
+
       - name: start mysql
         uses: mirromutth/mysql-action@v1.1
         with:
@@ -31,6 +31,7 @@ jobs:
         uses: supercharge/redis-github-action@1.4.0
         with:
           redis-version: '6.0'
+          redis-port: 16379
 
       - name: migrate database
         run: CONFIG_YAML=test/config.yml go run main.go -db:migrate
