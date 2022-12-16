@@ -66,4 +66,10 @@ func prepareTestDatabase() {
 	}
 
 	initialize.InitMySQL()
+
+	conn := initialize.RedisPool.Get()
+	if _, err := conn.Do("flushall"); err != nil {
+		fmt.Printf("flush redis fail: %#v\n", err)
+		os.Exit(1)
+	}
 }

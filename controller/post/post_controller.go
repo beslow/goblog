@@ -20,7 +20,6 @@ import (
 func PostIndex(router *gin.Engine) {
 	router.GET("/blog", func(c *gin.Context) {
 		var posts []models.Post
-		initialize.DB.Find(&posts)
 
 		pageStr, _ := c.GetQuery("page")
 		page, _ := strconv.Atoi(pageStr)

@@ -23,12 +23,21 @@ import (
 
 var TemplateFs embed.FS
 
+var (
+	router *gin.Engine
+	eng    *engine.Engine
+)
+
 func SetRouter() (*gin.Engine, *engine.Engine) {
-	router := gin.Default()
+	if router != nil && eng != nil {
+		return router, eng
+	}
+
+	router = gin.Default()
 
 	go_admin_template.AddComp(chartjs.NewChart())
 
-	eng := engine.Default()
+	eng = engine.Default()
 
 	if err := eng.AddConfigFromYAML("./config.yml").
 		AddGenerators(tables.Generators).
