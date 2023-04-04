@@ -43,8 +43,8 @@ services:
       - JAVA_OPTS=-Duser.home=/opt
       - JAVA_OPT_EXT=-server -Xms1024m -Xmx1024m
     volumes:
-      - /Users/beslow/workspace/rocketmq/data/namesrv/logs:/root/logs
-      - /Users/beslow/workspace/rocketmq/data/namesrv/store:/root/store
+      - /var/lib/rocketmq/data/namesrv/logs:/root/logs
+      - /var/lib/rocketmq/data/namesrv/store:/root/store
     networks:
       - goblog-net
   rocketmq_broker:
@@ -61,9 +61,9 @@ services:
       - JAVA_OPTS=-Duser.home=/opt
       - JAVA_OPT_EXT=-server -Xms1024m -Xmx1024m
     volumes:
-      - /Users/beslow/workspace/rocketmq/data/broker/logs:/root/logs
-      - /Users/beslow/workspace/rocketmq/rocketmq/data/broker/store:/root/store
-      - /Users/beslow/workspace/rocketmq/conf/broker.conf:/opt/rocketmq/conf/broker.conf  
+      - /var/lib/rocketmq/data/broker/logs:/root/logs
+      - /var/lib/rocketmq/rocketmq/data/broker/store:/root/store
+      - /var/lib/rocketmq/conf/broker.conf:/opt/rocketmq/conf/broker.conf  
     networks:
       - goblog-net 
   rocketmq_dashboard:

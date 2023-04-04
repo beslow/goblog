@@ -9,14 +9,36 @@ http://1.117.145.187/blog
 `mkdir -p /var/lib/mysql`
 ### 3. create redis data dir
 `mkdir -p /var/lib/data`
-### 4. install docker and docker-compose
+### 4. create rocketmq related dir
+`mkdir -p /var/lib/rocketmq/data/namesrv/logs`
+`mkdir -p /var/lib/rocketmq/data/namesrv/store`
+`mkdir -p /var/lib/rocketmq/data/broker/logs`
+`mkdir -p /var/lib/rocketmq/rocketmq/data/broker/store`
+`mkdir -p /var/lib/rocketmq/conf`
+
+### 5. create broker.conf file
+`mkdir -p /var/lib/rocketmq/conf/broker.conf`
+with content
+```
+brokerClusterName = DefaultCluster
+brokerName = broker-a
+brokerId = 0
+deleteWhen = 04
+fileReservedTime = 48
+brokerRole = ASYNC_MASTER
+flushDiskType = ASYNC_FLUSH
+namesrvAddr = namesrv:9876
+#brokerIP1 = 172.17.0.4
+brokerIP1=broker-a
+```
+### 6. install docker and docker-compose
 ```
 yum install docker -y
 yum install docker-compose -y
 ```
-### 5. start docker
+### 7. start docker
 `systemctl start docker`
-### 6. run goblog
+### 8. run goblog
 `docker-compose -f docker-compose-no-build.yml up -d`
 
 # Update image
