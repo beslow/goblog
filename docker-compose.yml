@@ -3,11 +3,13 @@ services:
   app:
     build: .
     ports:
-      - "8080:80" 
-    command: /bin/sh -c "wait4x tcp db:3306 -t 30s && wait4x tcp redis:6379 -t 30s && ./goblog -db:create && ./goblog -db:migrate && ./goblog -db:seed && ./goblog"
+      - "9080:80" 
+    command: /bin/sh -c "wait4x tcp db:3306 -t 30s && wait4x tcp redis:6379 -t 30s && wait4x tcp namesrv:9876 && ./goblog -db:create && ./goblog -db:migrate && ./goblog -db:seed && ./goblog"
     depends_on:
       - db
       - redis
+      - rocketmq_namesrv
+      - rocketmq_broker
     networks: 
       - goblog-net
   db:
@@ -25,9 +27,55 @@ services:
     image: redis:6.0.16-bullseye
     command: redis-server --appendonly yes
     restart: unless-stopped
+    ports: 
+      - "16379:6379"
     volumes:
       - /var/lib/data:/data  
     networks:
       - goblog-net  
+  rocketmq_namesrv:
+    image: apache/rocketmq
+    command: sh mqnamesrv
+    hostname: namesrv
+    ports: 
+      - "9876:9876"
+    environment:
+      - JAVA_OPTS=-Duser.home=/opt
+      - JAVA_OPT_EXT=-server -Xms1024m -Xmx1024m
+    volumes:
+      - /Users/beslow/workspace/rocketmq/data/namesrv/logs:/root/logs
+      - /Users/beslow/workspace/rocketmq/data/namesrv/store:/root/store
+    networks:
+      - goblog-net
+  rocketmq_broker:
+    image: apache/rocketmq
+    command: sh mqbroker -c /opt/rocketmq/conf/broker.conf
+    hostname: broker-a
+    depends_on:
+      - rocketmq_namesrv
+    ports: 
+      - "10911:10911"   
+      - "10909:10909"  
+    environment:
+      - NAMESRV_ADDR=namesrv:9876  
+      - JAVA_OPTS=-Duser.home=/opt
+      - JAVA_OPT_EXT=-server -Xms1024m -Xmx1024m
+    volumes:
+      - /Users/beslow/workspace/rocketmq/data/broker/logs:/root/logs
+      - /Users/beslow/workspace/rocketmq/rocketmq/data/broker/store:/root/store
+      - /Users/beslow/workspace/rocketmq/conf/broker.conf:/opt/rocketmq/conf/broker.conf  
+    networks:
+      - goblog-net 
+  rocketmq_dashboard:
+    image: apacherocketmq/rocketmq-dashboard
+    depends_on:
+      - rocketmq_namesrv
+      - rocketmq_broker
+    ports:
+      - "8090:8080"
+    environment:
+      - JAVA_OPTS=-Drocketmq.namesrv.addr=namesrv:9876
+    networks:
+      - goblog-net
 networks:
   goblog-net:  

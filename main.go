@@ -17,6 +17,7 @@ import (
 	"github.com/beslow/goblog/db/migrations"
 	"github.com/beslow/goblog/db/seed"
 	"github.com/beslow/goblog/initialize"
+	"github.com/beslow/goblog/rocketmq/produce"
 	"github.com/beslow/goblog/router"
 	log "github.com/sirupsen/logrus"
 )
@@ -102,6 +103,8 @@ func releaseResource(quit chan os.Signal, eng *engine.Engine) {
 
 			log.Print("close redis connection")
 			initialize.RedisPool.Close()
+
+			produce.Close()
 
 			os.Exit(0)
 		default:

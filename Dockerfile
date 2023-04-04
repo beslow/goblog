@@ -13,7 +13,8 @@ RUN mkdir publish && \
     cp adm.ini publish && \
     cp config.yml.example publish/config.yml && \
     cp redis.yml.example publish/redis.yml && \
-    cp sentry.yml.example publish/sentry.yml
+    cp sentry.yml.example publish/sentry.yml && \
+    cp rocketmq.yml.example publish/rocketmq.yml
 
 FROM alpine:3.14
 
