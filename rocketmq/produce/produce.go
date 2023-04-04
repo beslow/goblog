@@ -15,6 +15,10 @@ import (
 var instance rocketmq.Producer
 
 func init() {
+	if os.Getenv("GO_TEST") != "" {
+		return
+	}
+
 	var err error
 
 	addr := config.Rocketmq.NamesrvAddr + ":9876"
@@ -38,6 +42,10 @@ func init() {
 }
 
 func Do(topic, body string) {
+	if os.Getenv("GO_TEST") != "" {
+		return
+	}
+
 	msg := &primitive.Message{
 		Topic: topic,
 		Body:  []byte(body),
@@ -53,6 +61,10 @@ func Do(topic, body string) {
 }
 
 func Close() {
+	if os.Getenv("GO_TEST") != "" {
+		return
+	}
+
 	err := instance.Shutdown()
 	if err != nil {
 		fmt.Printf("shutdown producer error: %s", err.Error())
