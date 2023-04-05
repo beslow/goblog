@@ -37,10 +37,10 @@ jobs:
           redis-port: 16379
 
       - name: make logs dir
-        run: mkdir logs
+        run: mkdir test/logs
 
       - name: create info.log
-        run: touch logs/info.log  
+        run: touch test/logs/info.log
 
       - name: create database
         run: CONFIG_DIR=test go run main.go -db:create
