@@ -53,9 +53,9 @@ func Do(topic, body string) {
 	res, err := instance.SendSync(context.Background(), msg)
 
 	if err != nil {
-		logger.Log.Printf("send message error: %s\n", err)
+		logger.Log.Infof("send message error: %s\n", err)
 	} else {
-		logger.Log.Printf("send message success: result=%s\n", res.String())
+		logger.Log.Infof("send message success: result=%s\n", res.String())
 	}
 }
 
@@ -66,6 +66,6 @@ func Close() {
 
 	err := instance.Shutdown()
 	if err != nil {
-		logger.Log.Printf("shutdown producer error: %s", err.Error())
+		logger.Log.Infof("shutdown producer error: %s", err.Error())
 	}
 }
