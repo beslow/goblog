@@ -10,14 +10,17 @@ http://1.117.145.187/blog
 ### 3. create redis data dir
 `mkdir -p /var/lib/data`
 ### 4. create rocketmq related dir
-`mkdir -p /var/lib/rocketmq/data/namesrv/logs`
-`mkdir -p /var/lib/rocketmq/data/namesrv/store`
-`mkdir -p /var/lib/rocketmq/data/broker/logs`
-`mkdir -p /var/lib/rocketmq/rocketmq/data/broker/store`
-`mkdir -p /var/lib/rocketmq/conf`
+```
+mkdir -p /var/lib/rocketmq/data/namesrv/logs
+mkdir -p /var/lib/rocketmq/data/namesrv/store
+mkdir -p /var/lib/rocketmq/data/broker/logs
+mkdir -p /var/lib/rocketmq/rocketmq/data/broker/store
+mkdir -p /var/lib/rocketmq/conf
+```
 
 ### 5. create broker.conf file
 `mkdir -p /var/lib/rocketmq/conf/broker.conf`
+
 with content
 ```
 brokerClusterName = DefaultCluster
