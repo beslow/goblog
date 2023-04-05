@@ -39,6 +39,9 @@ jobs:
       - name: make logs dir
         run: mkdir logs
 
+      - name: create info.log
+        run: touch logs/info.log  
+
       - name: create database
         run: CONFIG_DIR=test go run main.go -db:create
 
