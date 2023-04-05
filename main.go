@@ -3,7 +3,6 @@ package main
 import (
 	"embed"
 	"flag"
-	"io"
 	"os"
 	"os/signal"
 	"syscall"
@@ -22,28 +21,6 @@ import (
 	"github.com/beslow/goblog/router"
 	log "github.com/sirupsen/logrus"
 )
-
-var logFile *os.File
-
-func init() {
-	// Log as JSON instead of the default ASCII formatter.
-	log.SetFormatter(&log.JSONFormatter{})
-
-	var err error
-
-	// Output to stdout instead of the default stderr
-	// Can be any io.Writer, see below for File example
-	logFile, err = os.OpenFile("logs/info.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
-	if err != nil {
-		log.Fatalf("error opening file: %v", err)
-	}
-	defer logFile.Close()
-
-	log.SetOutput(logFile)
-
-	// Only log the warning severity or above.
-	log.SetLevel(log.InfoLevel)
-}
 
 var (
 	// ./goblog -db:create
@@ -64,7 +41,6 @@ var f embed.FS
 
 func main() {
 	gin.SetMode(gin.ReleaseMode)
-	gin.DefaultWriter = io.MultiWriter(logFile)
 
 	flag.Parse()
 

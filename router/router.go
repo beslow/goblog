@@ -2,8 +2,10 @@ package router
 
 import (
 	"embed"
+	"fmt"
 	"html/template"
 	"net/http"
+	"os"
 
 	"github.com/GoAdminGroup/go-admin/engine"
 	go_admin_template "github.com/GoAdminGroup/go-admin/template"
@@ -17,7 +19,7 @@ import (
 	"github.com/beslow/goblog/tables"
 	sentrygin "github.com/getsentry/sentry-go/gin"
 	"github.com/gin-gonic/gin"
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	ginlogrus "github.com/toorop/gin-logrus"
 )
 
@@ -47,7 +49,15 @@ func SetRouter() (*gin.Engine, *engine.Engine) {
 
 	eng.HTML("GET", "/admin", pages.GetDashBoard)
 
-	log := log.New()
+	log := logrus.New()
+
+	logFile, err := os.OpenFile("logs/info.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		fmt.Printf("error opening file: %v\n", err)
+		os.Exit(1)
+	}
+
+	log.Out = logFile
 
 	r.Use(ginlogrus.Logger(log), gin.CustomRecovery(middleware.RecoverHandle))
 
