@@ -1,3 +1,3 @@
-namesrv_addr: http://namesrv
+namesrv_addr: http://rocketmq_namesrv
 
 # 172.20.0.3
