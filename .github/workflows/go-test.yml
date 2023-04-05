@@ -36,6 +36,9 @@ jobs:
           redis-version: '6.0'
           redis-port: 16379
 
+      - name: make logs dir
+        run: mkdir logs
+
       - name: create database
         run: CONFIG_DIR=test go run main.go -db:create
 
@@ -47,9 +50,6 @@ jobs:
 
       - name: generate assets
         run: go generate test/*.go 
-
-      - name: make logs dir
-        run: mkdir logs
 
       - name: run Test
         run: go test -v ./...
