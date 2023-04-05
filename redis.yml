@@ -1,6 +1,6 @@
 host: 127.0.0.1
 port: 16379
-username: admin
-password: admin
+username: default
+password: 
 max_idle: 3
 idle_timeout: 240 # second

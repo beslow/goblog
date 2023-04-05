@@ -2,10 +2,8 @@ package router
 
 import (
 	"embed"
-	"fmt"
 	"html/template"
 	"net/http"
-	"os"
 
 	"github.com/GoAdminGroup/go-admin/engine"
 	go_admin_template "github.com/GoAdminGroup/go-admin/template"
@@ -14,12 +12,12 @@ import (
 	"github.com/beslow/goblog/controller/resume"
 	"github.com/beslow/goblog/helpers"
 	"github.com/beslow/goblog/initialize"
+	"github.com/beslow/goblog/logger"
 	"github.com/beslow/goblog/middleware"
 	"github.com/beslow/goblog/pages"
 	"github.com/beslow/goblog/tables"
 	sentrygin "github.com/getsentry/sentry-go/gin"
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 	ginlogrus "github.com/toorop/gin-logrus"
 )
 
@@ -49,17 +47,7 @@ func SetRouter() (*gin.Engine, *engine.Engine) {
 
 	eng.HTML("GET", "/admin", pages.GetDashBoard)
 
-	log := logrus.New()
-
-	logFile, err := os.OpenFile("logs/info.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
-	if err != nil {
-		fmt.Printf("error opening file: %v\n", err)
-		os.Exit(1)
-	}
-
-	log.Out = logFile
-
-	r.Use(ginlogrus.Logger(log), gin.CustomRecovery(middleware.RecoverHandle))
+	r.Use(ginlogrus.Logger(logger.Log), gin.CustomRecovery(middleware.RecoverHandle))
 
 	r.Use(middleware.CountVisit())
 
@@ -67,7 +55,7 @@ func SetRouter() (*gin.Engine, *engine.Engine) {
 		r.Use(sentrygin.New(sentrygin.Options{Repanic: true})) // repanic for custom recovery
 	}
 
-	r.Use(middleware.ErrorHandler(log))
+	r.Use(middleware.ErrorHandler(logger.Log))
 
 	r.StaticFS("/public", http.FS(TemplateFs))
 

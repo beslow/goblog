@@ -9,10 +9,10 @@ database:
   default:
     driver: mysql
     host: 127.0.0.1
-    port: 3306
+    port: 13306
     user: root
-    pwd: root
-    name: goblog5
+    pwd: 
+    name: goblog
     max_idle_con: 5
     max_open_con: 10
     # params为驱动需要的额外的传参
