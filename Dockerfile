@@ -15,8 +15,8 @@ RUN mkdir publish && \
     cp redis.yml.example publish/redis.yml && \
     cp sentry.yml.example publish/sentry.yml && \
     cp rocketmq.yml.example publish/rocketmq.yml && \
-    mkdir logs && \
-    touch logs/info.log
+    mkdir publish/logs && \
+    touch publish/logs/info.log
 
 FROM alpine:3.14
 
