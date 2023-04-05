@@ -31,6 +31,6 @@ COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/cert
 ENV GIN_MODE=release \
     PORT=80
 
-EXPOSE 80    
+EXPOSE 80
 
 # ENTRYPOINT [ "./goblog" ]
