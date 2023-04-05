@@ -66,16 +66,16 @@ services:
       - /var/lib/rocketmq/conf/broker.conf:/opt/rocketmq/conf/broker.conf  
     networks:
       - goblog-net 
-  rocketmq_dashboard:
-    image: apacherocketmq/rocketmq-dashboard
-    depends_on:
-      - rocketmq_namesrv
-      - rocketmq_broker
-    ports:
-      - "8090:8080"
-    environment:
-      - JAVA_OPTS=-Drocketmq.namesrv.addr=namesrv:9876
-    networks:
-      - goblog-net      
+  # rocketmq_dashboard:
+  #   image: apacherocketmq/rocketmq-dashboard
+  #   depends_on:
+  #     - rocketmq_namesrv
+  #     - rocketmq_broker
+  #   ports:
+  #     - "8090:8080"
+  #   environment:
+  #     - JAVA_OPTS=-Drocketmq.namesrv.addr=rocketmq_namesrv:9876
+  #   networks:
+  #     - goblog-net      
 networks:
   goblog-net:   
